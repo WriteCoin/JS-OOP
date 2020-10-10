@@ -2,18 +2,25 @@
 
 var L =
 {
+    i: 0,
+    log: () => {
+        console.log("Счетчик: " + (++L.i))
+    },
     // name: "Function L.js",
-    CL: function(str) {
+    CL: (str) => {
+        L.log()
         console.log(str)
         return str
     },
-    CGb: function(str) {
+    CGb: (str) => {
+        L.log()
         console.group(str)
     },
-    CGe: function() {
+    CGe: () => {
+        L.log()
         console.groupEnd()
     },
-    n:function() { return 'Function L.js'},
+    n: () => { return 'Function L.js'},
     version: "Версия 1.01"
 }
 
