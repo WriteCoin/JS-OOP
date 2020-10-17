@@ -3,25 +3,28 @@
 
 let L = (() => {
     let i = 0
+    let isDebugMode = true
     let log = () => {
         // console.log("Счетчик: " + (++i))
+        ++i
+        if (isDebugMode) console.log("Счетчик: " + i)
     }
     let publicAPI = {
         CL: (str) => {
             log()
-            console.log(str)
+            if (isDebugMode) console.log(str)
             return str
         },
         CGb: (str) => {
             log()
-            console.group(str)
+            if (isDebugMode) console.group(str)
         },
         CGe: () => {
             log()
-            console.groupEnd()
+            if (isDebugMode) console.groupEnd()
         },
         n: () => { return 'Library L.js'},
-        version: "Версия 1.01"
+        version: "Version 1.02"
     }
     publicAPI.__defineGetter__("name", publicAPI.n)
     publicAPI.__defineSetter__("name", (newName) => {
@@ -36,10 +39,32 @@ let L = (() => {
     publicAPI.__defineSetter__("version", publicAPI.__lookupSetter__("name"))
     Object.defineProperty(publicAPI, 'name', 
     {
-        value: "Library L.js",
-        writable: false,
+        // value: "Library L.js",
+        // writable: false,
         configurable: false,
-        set: publicAPI.__lookupSetter__('name')
+        enumerable: false,
+        set: publicAPI.__lookupSetter__('name'),
+        get: publicAPI.__lookupGetter__('name') // accessors
     })
-    return publicAPI
+    Object.defineProperty(publicAPI, 'version',
+    {
+        configurable: false,
+        enumerable: false,
+        set: publicAPI.__lookupSetter__('version'),
+        get: publicAPI.__lookupGetter__('version')
+    })
+    let publicAPI_child = Object.create(publicAPI, 
+        {
+            date: {
+                value: '17.10.2020',
+                writable: false,
+                configurable: false,
+            },
+            autor: {
+                value: 'группа М3О-235Б-19',
+                writable: false,
+                configurable: false
+            }
+        })
+    return publicAPI_child
 })()
