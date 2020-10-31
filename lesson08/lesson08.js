@@ -47,19 +47,15 @@ let objF = new F(10)
 L.CL(objF)
 L.CL(objF.__proto__)
 
-// Новый класс: массив строк
-let _str = {
-    valueOf: function() {
-        let index = L.r(0, this.valueList.length - 1)
-        return this.valueList[index]
-    }
-}
-function Str(x) {
-    this.valueList = x
-
-}
-Str.prototype = _str
-_str.constructor = Str
-
-let str1 = new Str(["Привет", "Hello", "Ola", "Hallo"])
+let str1 = new L.Str(["Привет", "Hello", "Ola", "Hallo"])
 L.CL(str1.valueOf())
+
+let phrase = new L.Phrase(
+    ["Привет", "Hello"],
+    [", "],
+    ["Мир", "World"],
+    ["!!!"]
+)
+L.CL(phrase.valueOf)
+
+L.b('qqq')

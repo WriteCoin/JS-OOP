@@ -3,7 +3,7 @@
 
 let L = (() => {
     let i = 0
-    let isDebugMode = true
+    let isDebugMode = false
     let log = () => {
         // console.log("Счетчик: " + (++i))
         ++i
@@ -12,16 +12,16 @@ let L = (() => {
     let publicAPI = {
         CL: (str) => {
             log()
-            if (isDebugMode) console.log(str)
+            console.log(str)
             return str
         },
         CGb: (str) => {
             log()
-            if (isDebugMode) console.group(str)
+            console.group(str)
         },
         CGe: () => {
             log()
-            if (isDebugMode) console.groupEnd()
+            console.groupEnd()
         },
         r: (a, b) => a + Math.round( (b - a) * Math.random() ),
         t: x => typeof(x),
@@ -75,6 +75,52 @@ let L = (() => {
             L.CL(key + ' = ' + this[key])
         }
     }).bind(publicAPI_child)
+
+    // Новый класс: массив строк
+    let _str = {
+        valueOf: function() {
+            let index = publicAPI_child.r(0, this.valueList.length - 1)
+            return this.valueList[index]
+        },
+        chanceOf: function() {
+            return (1 / this.valueList.length)
+        }
+    }
+    function Str(x) {
+        this.valueList = x
+
+    }
+    Str.prototype = _str
+    _str.constructor = Str
+    publicAPI_child.Str = Str
+
+    //Стразы
+    let _phrase = {
+        valueOf: function() {
+            let result = ''
+            for (let i = 0; i < this.wordList.length; i++) {
+                result += this.wordList[i].valueOf()
+            }
+            return result
+        },
+        chanceOf: function() {
+            let result = new Array(this.wordList.length).map((v) => this.wordList[v].chanceOf())
+        }
+    }
+    // spread
+    function Phrase(...x) {
+        this.wordList = x.map((v) => new Str(v))
+    }
+    Phrase.prototype = _phrase
+    _phrase.constructor = Phrase
+    publicAPI_child.Phrase = Phrase
+
+    publicAPI_child.b = (txt) => {
+        let elem = document.getElementsByTagName("body")[0]
+        elem.innerHTML = txt
+        elem.style.fontSize = "40px"
+    }
+
     publicAPI_child.pl.description = "Выводит список всех свойств библиотеки L.js"
     return publicAPI_child
 })()
