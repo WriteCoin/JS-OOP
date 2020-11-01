@@ -3,7 +3,7 @@
 
 let L = (() => {
     let i = 0
-    let isDebugMode = true
+    let isDebugMode = false
     let log = () => {
         // console.log("Счетчик: " + (++i))
         ++i
@@ -12,16 +12,16 @@ let L = (() => {
     let publicAPI = {
         CL: (str) => {
             log()
-            if (isDebugMode) console.log(str)
+            console.log(str)
             return str
         },
         CGb: (str) => {
             log()
-            if (isDebugMode) console.group(str)
+            console.group(str)
         },
         CGe: () => {
             log()
-            if (isDebugMode) console.groupEnd()
+            console.groupEnd()
         },
         n: () => { return 'Library L.js'},
         version: "Version 1.02"
@@ -64,8 +64,8 @@ let L = (() => {
                 value: 'группа М3О-235Б-19',
                 writable: false,
                 configurable: false
-            },
-            r: (a, b) => a + Math.round( (b - a) * Math.random() )
+            }
+            // r: (a, b) => a + Math.round( (b - a) * Math.random() )
         })
     publicAPI_child.pl = (() => {
         for (key in this) {
@@ -74,5 +74,15 @@ let L = (() => {
         }
     }).bind(publicAPI_child)
     publicAPI_child.pl.description = "Выводит список всех свойств библиотеки L.js"
+    publicAPI_child.rfg = (a, b) => { 
+        return (x = a, y = b) => {
+            if (a > b) {
+                console.error("Ошибочка уыуофдыь з-мч числа: " + a + ', ' + b)
+                return undefined
+            } else return x + Math.round( (y - x) * Math.random() )
+        }
+    }
+    publicAPI_child.r = (a, b) => publicAPI_child.rfg(a, b)
+    publicAPI_child.rfg.description = "Рандом чисел"
     return publicAPI_child
 })()

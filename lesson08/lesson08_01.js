@@ -27,5 +27,4 @@ let phrase = new L.Phrase(
     , ["не смог."]
 )
 L.b(phrase.valueOf())
-
-// добавить метод pu в класс Str
+L.CL(phrase.chanceOf())
