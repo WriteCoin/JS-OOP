@@ -104,7 +104,11 @@ let L = (() => {
             return result
         },
         chanceOf: function() {
-            let result = new Array(this.wordList.length).map((v) => this.wordList[v].chanceOf())
+            let result = new Array
+            for (let i = 0; i < this.wordList.length; i++) {
+                result.push(this.wordList[i].chanceOf())
+            }
+            return result
         }
     }
     // spread

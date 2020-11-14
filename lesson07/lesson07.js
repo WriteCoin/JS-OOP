@@ -58,6 +58,44 @@ let r = (a,b) => {
 }
 // L.CL(r(0,5))
 
-for (let i=1; i<=10; i++) {
-    L.CL(r(0,1))
-}
+// for (let i=1; i<=10; i++) {
+//     L.CL(r(0,1))
+// }
+
+// let f10 = L.r(10, 1)
+
+// L.CL(f10())
+
+
+
+// Object
+
+let obj = new Object({
+    a: 1,
+    b: 2
+})
+
+L.CL(obj)
+
+L.CL(Object.prototype)
+L.CL(obj.__proto__)
+L.CL(Object.prototype == obj.__proto__)
+L.CL(obj.__proto__.__proto__)
+
+let str = new String("Hello")
+L.CL(str)
+
+L.CL(str.__proto__.__proto__ == obj.__proto__)
+
+L.CL(obj.constructor)
+L.CL(str.constructor)
+
+L.CL(obj.constructor.prototype.__proto__)
+L.CL(str.constructor.prototype.__proto__)
+
+let arr = new Array([1, 2, 3])
+L.CL(arr)
+L.CL(arr.constructor)
+L.CL(arr.__proto__)
+
+L.CL(Object.prototype)
