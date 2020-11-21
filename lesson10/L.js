@@ -117,8 +117,19 @@ let L = (() => {
 
     publicAPI_child.b = (txt) => {
         let elem = document.getElementsByTagName("body")[0]
-        elem.innerHTML = txt
+        elem.innerHTML += txt
         elem.style.fontSize = "40px"
+    }
+
+    let propertyName = Symbol("Title of variable for storage counter")
+    publicAPI_child.Counter = function() {
+        this[propertyName] = 0
+        this.__proto__[propertyName] = 0
+    }
+    publicAPI_child.Counter.prototype.next = function() {
+        this[propertyName] = 0
+        this.__proto__[propertyName]++
+        return this[propertyName]
     }
 
     publicAPI_child.pl.description = "Выводит список всех свойств библиотеки L.js"
